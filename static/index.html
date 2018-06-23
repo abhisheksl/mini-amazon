@@ -7,6 +7,7 @@
 <body>
 
  <form action="/api/product" method="POST">
+       <input type="text" name="op_type" value="add" hidden><br>
        <input type="text" name="name" required placeholder="Product Name"><br>
        <input type="number" name="price" required placeholder="Price"><br>
        <input type="text" name="desc" required placeholder="Product Description"><br>
@@ -17,6 +18,15 @@
  <form action="/api/product" method="GET">
        <input type="text" name="name" required placeholder="Product Name"><br>
        <input type="submit" value="Search Product">
+ </form>
+
+ <form action="/api/product" method="POST">
+       <input type="text" name="op_type" value="update" hidden><br>
+       <input type="text" name="name" required placeholder="Existing Product Name"><br>
+       <input type="number" name="price" required placeholder="Update Price"><br>
+       <input type="text" name="desc" required placeholder="Update Product Description"><br>
+       <input type="submit" value="Update">
+
  </form>
 
 </body>
