@@ -2,11 +2,12 @@ from flask import request, send_from_directory, jsonify, render_template
 
 from amazon import app
 from amazon.model import products as product_model
+from amazon.model import users as user_model
 
 
 @app.route('/', methods=['GET'])
 def index_page():
-    return send_from_directory('./amazon/static', 'index.html')
+    return send_from_directory('./amazon/static/', 'index.html')
 
 
 @app.route('/api/product', methods=['GET', 'POST'])
@@ -31,7 +32,7 @@ def product():
         if op_type == 'add':
 
             product_model.add_product(prod)
-            return send_from_directory('./amazon/static', 'index.html')
+            return 'Product ' + name + ' added successfully!'
 
         elif op_type == 'update':
 
@@ -42,6 +43,35 @@ def product():
                                }
             product_model.update_product(name, updated_product)
 
-            return send_from_directory('./amazon/static', 'index.html')
+            return 'Product details updated successfully!'
 
         return 'Product not found'
+
+
+@app.route('/api/users', methods=['POST'])
+#Login or Signup
+def user():
+    op_type = request.form['op_type']
+    if op_type == 'login':
+        username = request.form['username']
+        password = request.form['password']
+        success = user_model.authenticate(username, password)
+        if success:
+            if username == 'admin':
+                return render_template('admin.html', value=username)
+            else:
+                return render_template('home.html', value=username)
+        else:
+            return '<h2> User not found </h2>'
+
+    if op_type == 'signup':
+        name = request.form['name']
+        username = request.form['username']
+        password = request.form['password']
+        success = user_model.search_a_user(username)
+        if success:
+            return '<h2> Username already exists. Please use a new username </h2>'
+        else:
+            user_model.user_signup(name,username,password)
+            return render_template('home.html', value=name)
+

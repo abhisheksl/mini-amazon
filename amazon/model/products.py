@@ -2,7 +2,7 @@ from amazon.model import db
 
 def search_product(name):
 
-    query = {'name' : name}
+    query = {'name': name}
     matching_products = db['products'].find(query)
     return list(matching_products)
 

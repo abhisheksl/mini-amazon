@@ -5,29 +5,27 @@
     <title>Mini Amazon</title>
 </head>
 <body>
+    <h2>Login Here</h2>
 
- <form action="/api/product" method="POST">
-       <input type="text" name="op_type" value="add" hidden><br>
-       <input type="text" name="name" required placeholder="Product Name"><br>
-       <input type="number" name="price" required placeholder="Price"><br>
-       <input type="text" name="desc" required placeholder="Product Description"><br>
-       <input type="submit" value="Add Product">
+    <form action="/api/users"  method="post">
+        <input type="text" name="op_type" value="login" hidden>
+        <input type="text" name="username" placeholder="Username" required><br>
+        <input type="password" name="password" placeholder="Password" required><br>
+        <input type="submit" value="LOGIN" >
 
- </form>
+    </form>
 
- <form action="/api/product" method="GET">
-       <input type="text" name="name" required placeholder="Product Name"><br>
-       <input type="submit" value="Search Product">
- </form>
+        <h2>Sign Up</h2>
 
- <form action="/api/product" method="POST">
-       <input type="text" name="op_type" value="update" hidden><br>
-       <input type="text" name="name" required placeholder="Existing Product Name"><br>
-       <input type="number" name="price" required placeholder="Update Price"><br>
-       <input type="text" name="desc" required placeholder="Update Product Description"><br>
-       <input type="submit" value="Update">
+    <form action="/api/users"  method="post">
+        <input type="text" name="op_type" value="signup" hidden>
+        <input type="text" name="name" placeholder="Name" required><br>
+        <input type="text" name="username" placeholder="Username" required><br>
+        <input type="password" name="password" placeholder="Password" required><br>
+        <input type="submit" value="SIGN UP" >
 
- </form>
+    </form>
 
-</body>
+
+    </body>
 </html>
