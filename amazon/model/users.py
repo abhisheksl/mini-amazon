@@ -1,5 +1,6 @@
 from amazon.model import db
 from flask import render_template
+from bson.objectid import ObjectId
 
 
 def search_a_user(username):
@@ -9,6 +10,17 @@ def search_a_user(username):
         return matching_user.next()
     else:
         return None
+
+def search_by_userid(user_id):
+    # lets search for the user here
+    query = {'_id': ObjectId(user_id)}
+    matching_user = db['users'].find(query)
+    if matching_user.count() == 1:
+        return matching_user.next()
+    else:
+        return None
+
+
 
 
 def user_signup(name, username, password):
@@ -40,4 +52,50 @@ def authenticate(username, password):
         return False
 
 
+def add_to_cart(user_id, product_id):
+    condition = {'_id': ObjectId(user_id)}
 
+    cursor = db.users.find(condition)
+
+    if cursor.count() == 1:
+        user_data = cursor[0]
+        return user_data['cart']
+
+    else:
+        return False
+
+    if 'cart' not in user_data:
+        user_data['cart'] = []
+
+    user_data['cart'].append(product_id)
+    db.users.update_one(filter=condition, update={'$set': user_data})
+
+    return True
+
+
+def retrieve_cart(user_id):
+    condition = {'_id': ObjectId(user_id)}
+
+    cursor = db.users.find(condition)
+
+    if cursor.count() == 1:
+        user_data = cursor[0]
+        return user_data['cart']
+    else:
+        # user id does not exist
+        return False
+
+
+def delete_from_cart(user_id, product_id):
+    condition = {'_id': ObjectId(user_id)}
+
+    cursor = db.users.find(condition)
+
+    if cursor.count() == 1:
+        user_data = cursor[0]
+    else:
+        return False
+    user_data['cart'].remove(product_id)
+    db.users.update_one(filter=condition, update={'$set': user_data})
+
+    return True

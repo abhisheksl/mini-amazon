@@ -12,5 +12,10 @@
         <input type="text" name="name" placeholder="Name" required>
         <input type="submit" value="SEARCH">
     </form>
+    <form action="/api/cart" method="post">
+        <input type="text" name="op_type" value="retrieve" hidden>
+        <input type="submit" value="View Cart">
+    </form>
+    <a href="/logout">Logout</a>
 </body>
 </html>

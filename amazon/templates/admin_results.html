@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<h1>{{ product|length}} results for "{{query}}"</h1>
+
+{% for product in product %}
+    <div>
+
+    <form action="/api/product" method="post">
+        <input type="text" name="op_type" value="update" hidden>
+        <input type="text" name="product_id" value="{{ product._id }}" hidden>
+        Product Name : {{product.name}}<div align="right"><input type="text" name="name" placeholder="Updated Name"></div>
+        Description: <b>{{product.desc}}</b><div align="right"><input type="text" name="desc" placeholder="Updated Description"></div>
+        Price : <i>{{product.price}}</i><div align="right"><input type="number" name="price" placeholder="Updated Price"></div>
+        <div align="right"><input type="submit" value="UPDATE"></div>
+        <h3>~~~~~~~~~~~~~~~~~~~~~~~~</h3>
+    </form>
+
+    </div>
+
+{% endfor %}

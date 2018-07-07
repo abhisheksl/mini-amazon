@@ -6,6 +6,7 @@
 </head>
 <body>
     <h1> Welcome, {{value}} </h1>
+    <h2>{{ message }}</h2>
     <h2> Add Product</h2>
     <form action="/api/product" method="post">
         <input type="text" name="op_type" value="add" hidden>
@@ -21,6 +22,7 @@
         <input type="submit" value="SEARCH">
     </form>
 
+<!--
     <h2>Update product</h2>
     <form action="/api/product" method="post">
         <input type="text" name="op_type" value="update" hidden>
@@ -29,6 +31,7 @@
         <input type="number" name="price" placeholder="Updated Price"required><br>
         <input type="submit" value="UPDATE">
     </form>
+-->
 
 </form>
 </body>

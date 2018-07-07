@@ -5,3 +5,4 @@ app = Flask('Amazon', template_folder='./amazon/templates')
 
 # Import API to invoke and configure the app
 from amazon import api
+app.secret_key='my_secret'
