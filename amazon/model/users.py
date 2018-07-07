@@ -59,7 +59,6 @@ def add_to_cart(user_id, product_id):
 
     if cursor.count() == 1:
         user_data = cursor[0]
-        return user_data['cart']
 
     else:
         return False

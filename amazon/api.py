@@ -32,7 +32,7 @@ def product():
     elif request.method == 'POST':
         op_type = request.form['op_type']
         name = request.form['name']
-        price = request.form['price']
+        price = int(request.form['price'])
         desc = request.form['desc']
 
         prod = {
@@ -61,7 +61,7 @@ def product():
                 new_desc = request.form['desc']
 
             if request.form['price'] == '':
-                new_price = matching_products['price']
+                new_price = int(matching_products['price'])
             else:
                 new_price = request.form['price']
             updated_product = {'name': new_name,
@@ -125,13 +125,18 @@ def cart():
 
         cart_item_id = user_model.retrieve_cart(session['user_id'])
         cart_items = []
+        total = 0
         for p_id in cart_item_id:
-            cart_items.append(product_model.get_details(p_id))
+            cart_item = product_model.get_details(p_id)
+            cart_items.append(cart_item)
+            cart_item['price']
+            total += cart_item['price']
         user_details = user_model.search_by_userid(user_id)
 
         return render_template('cart.html',
                                products=cart_items,
-                               name=user_details['name'])
+                               name=user_details['name'],
+                               total= total)
     elif op_type == 'delete':
 
         product_id = request.form['product_id']
